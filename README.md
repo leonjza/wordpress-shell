@@ -19,7 +19,7 @@ Either upload the zip file located in the `dist/` directory, or create your own 
 -rw-r--r--  1 bob  staff   492B Aug 29 14:17 shell.zip
 ```
 
-Once uploaded, navigate to `/wp-content/plugins/shell/shell.php` and provide the `cmd` arguement.
+Once uploaded, navigate to `/wp-content/plugins/shell/shell.php` and provide the `cmd` argument.
 
 Sample Usage
 ============
